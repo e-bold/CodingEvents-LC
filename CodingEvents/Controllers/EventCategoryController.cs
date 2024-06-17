@@ -25,16 +25,13 @@ namespace CodingEvents.Controllers
         public IActionResult Index()
         {
             List<EventCategory> categories = context.Categories.ToList();
-
             return View(categories);
         }
 
         [HttpGet]
-        [Route("EventCategory/Create")]
         public IActionResult Create()
         {
             AddEventCategoryViewModel addEventCategoryViewModel = new AddEventCategoryViewModel();
-
             return View(addEventCategoryViewModel);
         }
 
@@ -43,18 +40,18 @@ namespace CodingEvents.Controllers
         {
             if (ModelState.IsValid)
             {
-                EventCategory theCategory = new EventCategory
+                EventCategory newCategory = new EventCategory
                 {
                     Name = addEventCategoryViewModel.Name
                 };
 
-                context.Categories.Add(theCategory);
+                context.Categories.Add(newCategory);
                 context.SaveChanges();
 
                 return Redirect("/EventCategory");
             }
+
             return View("Create", addEventCategoryViewModel);
         }
     }
 }
-
